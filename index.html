@@ -667,6 +667,51 @@
             color: #b1b1c7;
             font-size: 0.85em;
         }
+
+        /* New styles for copy prompt button */
+        .copy-prompt-btn {
+            position: absolute;
+            right: 20px;
+            bottom: 20px;
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            border: none;
+            border-radius: 12px;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .copy-prompt-btn:hover {
+            background: rgba(102, 126, 234, 0.2);
+            color: #9f7aea;
+        }
+
+        .copy-prompt-btn.copied {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4CAF50;
+            border-color: rgba(76, 175, 80, 0.5);
+        }
+
+        .copy-icon {
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .copy-prompt-btn {
+                right: 15px;
+                bottom: 15px;
+                padding: 6px 10px;
+                font-size: 11px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -677,6 +722,9 @@
         <div class="search-container">
             <textarea class="search-box" placeholder="Describe your task in detail... (e.g., 'Debug Python Flask application with authentication issues', 'Generate compelling marketing email for SaaS product launch', 'Analyze quarterly financial data and create executive summary')" id="promptInput"></textarea>
             <button class="search-btn" onclick="analyzePrompt()">Find Tool</button>
+            <button class="copy-prompt-btn" id="copyPromptBtn" onclick="copyPromptToClipboard()">
+                <span class="copy-icon">⎘</span> Copy Prompt
+            </button>
         </div>
 
         <div class="advanced-toggle">
@@ -857,6 +905,34 @@
                     e.preventDefault();
                     analyzePrompt();
                 }
+            });
+        }
+
+        // Copy prompt to clipboard
+        function copyPromptToClipboard() {
+            const promptInput = document.getElementById('promptInput');
+            const copyBtn = document.getElementById('copyPromptBtn');
+            
+            if (promptInput.value.trim() === '') {
+                return; // Don't copy if prompt is empty
+            }
+            
+            navigator.clipboard.writeText(promptInput.value).then(() => {
+                // Show feedback that text was copied
+                copyBtn.innerHTML = '<span class="copy-icon">✓</span> Copied!';
+                copyBtn.classList.add('copied');
+                
+                // Reset button after 2 seconds
+                setTimeout(() => {
+                    copyBtn.innerHTML = '<span class="copy-icon">⎘</span> Copy Prompt';
+                    copyBtn.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+                copyBtn.innerHTML = '<span class="copy-icon">✗</span> Failed';
+                setTimeout(() => {
+                    copyBtn.innerHTML = '<span class="copy-icon">⎘</span> Copy Prompt';
+                }, 2000);
             });
         }
 
