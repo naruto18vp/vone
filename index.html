@@ -370,7 +370,7 @@
     </div>
 
     <script>
-        // Enhanced AI Tools Database with weighted scoring
+        // Enhanced AI Tools Database (removed image generation models, added Grok)
         const aiTools = [
             {
                 id: 'deepseek',
@@ -385,7 +385,7 @@
                     "syntax": 10, "error": 10, "fix": 10, "python": 15, "javascript": 15,
                     "java": 10, "c++": 10, "git": 10, "terminal": 10
                 },
-                weaknesses: ["image", "art", "design", "creative", "story", "general"],
+                weaknesses: ["creative", "story", "art", "general", "question", "quiz", "mcq"],
                 category: "coding",
                 complexityThreshold: 4,
                 promptParam: "#message="
@@ -401,7 +401,8 @@
                     "explain": 25, "what is": 20, "how to": 20, "general": 20,
                     "write": 25, "summarize": 20, "translate": 15, "brainstorm": 20,
                     "ideas": 15, "email": 10, "letter": 10, "blog": 10, "article": 10,
-                    "content": 10, "rewrite": 10, "paraphrase": 10
+                    "content": 10, "rewrite": 10, "paraphrase": 10, "question": 15,
+                    "quiz": 15, "mcq": 15
                 },
                 weaknesses: ["complex code", "technical", "precise calculations", "debug"],
                 category: "general",
@@ -419,30 +420,12 @@
                     "analyze": 30, "compare": 25, "summarize": 25, "research": 25,
                     "complex": 20, "reasoning": 30, "document": 25, "technical": 20,
                     "academic": 20, "legal": 15, "contract": 15, "paper": 15, "thesis": 15,
-                    "long": 20, "detailed": 20
+                    "long": 20, "detailed": 20, "question": 20, "quiz": 15, "mcq": 15
                 },
-                weaknesses: ["creative writing", "humor", "code generation", "image"],
+                weaknesses: ["creative writing", "humor", "code generation"],
                 category: "analysis",
                 complexityThreshold: 4,
                 promptParam: null
-            },
-            {
-                id: 'dalle',
-                name: "DALL-E",
-                description: "Cutting-edge AI for generating images from text descriptions",
-                tags: ["Art", "Design", "Visuals", "Creativity"],
-                logo: "🎨",
-                url: "https://openai.com/dall-e-2/",
-                strengths: {
-                    "image": 35, "picture": 30, "draw": 30, "create": 25,
-                    "art": 30, "visual": 25, "generate": 20, "illustration": 25,
-                    "design": 20, "photo": 20, "logo": 15, "poster": 15, "graphic": 15,
-                    "painting": 15, "sketch": 15
-                },
-                weaknesses: ["text", "code", "analysis", "reasoning", "explain"],
-                category: "visual",
-                complexityThreshold: 1,
-                promptParam: "?prompt="
             },
             {
                 id: 'gemini',
@@ -453,9 +436,9 @@
                 url: "https://gemini.google.com/",
                 strengths: {
                     "search": 30, "find": 25, "current": 25, "recent": 20,
-                    "web": 25, "multimodal": 30, "image": 20, "text": 20,
-                    "news": 15, "trend": 15, "update": 15, "latest": 15,
-                    "google": 10, "information": 15
+                    "web": 25, "multimodal": 30, "text": 20, "news": 15,
+                    "trend": 15, "update": 15, "latest": 15, "google": 10,
+                    "information": 15, "question": 15, "quiz": 10, "mcq": 10
                 },
                 weaknesses: ["complex code", "long documents", "precise technical", "debug"],
                 category: "search",
@@ -473,9 +456,9 @@
                     "research": 30, "academic": 25, "source": 25, "citation": 25,
                     "reference": 20, "find": 20, "latest": 20, "recent": 20,
                     "news": 15, "paper": 15, "study": 15, "sources": 20,
-                    "evidence": 15, "data": 15
+                    "evidence": 15, "data": 15, "question": 20, "quiz": 15, "mcq": 15
                 },
-                weaknesses: ["creative", "coding", "visual", "art"],
+                weaknesses: ["creative", "coding", "visual"],
                 category: "research",
                 complexityThreshold: 3,
                 promptParam: "?q="
@@ -492,27 +475,27 @@
                     "function": 20, "method": 20, "variable": 15, "refactor": 20,
                     "vscode": 15, "ide": 15, "editor": 10, "snippet": 10
                 },
-                weaknesses: ["general", "writing", "analysis", "explain"],
+                weaknesses: ["general", "writing", "analysis", "explain", "question", "quiz", "mcq"],
                 category: "coding",
                 complexityThreshold: 3,
                 promptParam: null
             },
             {
-                id: 'midjourney',
-                name: "Midjourney",
-                description: "Premium AI for artistic image generation with fine control",
-                tags: ["Art", "Premium", "Stylized", "Creative"],
-                logo: "🖼️",
-                url: "https://midjourney.com/",
+                id: 'grok',
+                name: "Grok",
+                description: "X's AI with real-time knowledge and a rebellious streak",
+                tags: ["Real-time", "News", "Trends", "Conversational"],
+                logo: "🦊",
+                url: "https://x.com/i/grok",
                 strengths: {
-                    "art": 35, "artistic": 30, "style": 30, "painting": 25,
-                    "illustration": 30, "high quality": 25, "professional": 20,
-                    "concept": 15, "fantasy": 15, "digital": 15, "render": 15,
-                    "character": 15, "scene": 15
+                    "current": 30, "news": 25, "trend": 25, "recent": 20,
+                    "real-time": 30, "update": 20, "latest": 20, "x": 15,
+                    "twitter": 15, "social": 15, "question": 20, "quiz": 15,
+                    "mcq": 15, "explain": 15, "discuss": 15
                 },
-                weaknesses: ["text", "code", "analysis", "explain"],
-                category: "visual",
-                complexityThreshold: 1,
+                weaknesses: ["complex code", "technical", "long documents"],
+                category: "realtime",
+                complexityThreshold: 2,
                 promptParam: null
             }
         ];
@@ -551,8 +534,8 @@
             `).join('');
         }
 
-        // Enhanced prompt analysis
-        async function analyzePrompt() {
+        // Enhanced prompt analysis with MCQ detection
+        function analyzePrompt() {
             const prompt = document.getElementById('promptInput').value.trim();
             
             if (!prompt) {
@@ -570,7 +553,7 @@
                 card.style.display = 'block';
             });
 
-            // Simulate processing delay (in real app, this would be actual analysis)
+            // Simulate processing delay
             setTimeout(() => {
                 const results = analyzePromptContent(prompt);
                 displayResults(results, prompt);
@@ -580,16 +563,19 @@
             }, 800);
         }
 
-        // Core analysis logic with improved scoring
+        // Improved scoring algorithm with MCQ detection
         function analyzePromptContent(prompt) {
             const lowerPrompt = prompt.toLowerCase();
             
+            // Detect question type
+            const isMCQ = /(which|what|how|why)\s+(of these|option|choice|following)/i.test(prompt) || 
+                         /(a\)|b\)|c\)|d\))/i.test(prompt);
+            
             // First detect category with weighted scoring
             const categoryScores = {
-                coding: calculateCategoryScore(lowerPrompt, ["code", "programming", "debug", "function", "algorithm", "script", "error", "fix", "syntax", "python", "javascript"]),
-                visual: calculateCategoryScore(lowerPrompt, ["image", "picture", "draw", "art", "visual", "photo", "design", "illustration", "logo", "graphic"]),
-                analysis: calculateCategoryScore(lowerPrompt, ["analyze", "compare", "research", "study", "evaluate", "critique", "review", "paper", "thesis", "legal"]),
-                general: 1 // Fallback category
+                coding: calculateCategoryScore(lowerPrompt, ["code", "programming", "debug", "function", "algorithm"]),
+                analysis: calculateCategoryScore(lowerPrompt, ["analyze", "compare", "research", "study", "evaluate"]),
+                general: isMCQ ? 50 : 1 // Boost general category for MCQs
             };
             
             // Determine primary category
@@ -646,14 +632,21 @@
                 }
                 score += complexityScore;
                 
-                // 4. Penalize for weaknesses (-15 points per match)
+                // 4. Penalize for weaknesses (-20 points per match)
                 const weaknessMatches = tool.weaknesses.filter(weakness => 
                     lowerPrompt.includes(weakness)
                 ).length;
-                const weaknessPenalty = weaknessMatches * -15;
+                const weaknessPenalty = weaknessMatches * -20;
                 score += weaknessPenalty;
                 if (weaknessMatches > 0) {
                     scoringFactors.push({ name: "Weakness Penalty", points: weaknessPenalty, details: `${weaknessMatches} conflicts` });
+                }
+                
+                // 5. Special boost for MCQs (except coding tools)
+                if (isMCQ && tool.category !== 'coding') {
+                    const mcqBoost = 25;
+                    score += mcqBoost;
+                    scoringFactors.push({ name: "MCQ Boost", points: mcqBoost });
                 }
                 
                 // Ensure score doesn't go below 0
@@ -672,7 +665,6 @@
             return scoredTools;
         }
 
-        // Helper function to calculate category score with weights
         function calculateCategoryScore(text, terms) {
             let score = 0;
             for (const term of terms) {
@@ -686,12 +678,10 @@
             return score;
         }
 
-        // Helper function to check for multiple terms
         function containsAny(text, terms) {
             return terms.some(term => text.includes(term));
         }
 
-        // Display results
         function displayResults(scoredTools, prompt) {
             const bestMatch = scoredTools[0];
             const resultContainer = document.getElementById('resultContainer');
@@ -712,7 +702,7 @@
             const promptParam = bestMatch.tool.promptParam;
             if (promptParam) {
                 redirectBtn.href = `${bestMatch.tool.url}${promptParam}${encodeURIComponent(prompt)}`;
-                redirectBtn.onclick = null; // Use href
+                redirectBtn.onclick = null;
             } else {
                 redirectBtn.href = bestMatch.tool.url;
                 redirectBtn.onclick = function() {
@@ -747,7 +737,6 @@
             resultContainer.scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Redirect to specific tool with prompt
         function redirectToTool(toolId) {
             const prompt = document.getElementById('promptInput').value.trim();
             const tool = aiTools.find(t => t.id === toolId);
@@ -768,7 +757,6 @@
             }
         }
 
-        // Helper to truncate text
         function truncate(text, length) {
             return text.length > length ? text.substring(0, length) + '...' : text;
         }
